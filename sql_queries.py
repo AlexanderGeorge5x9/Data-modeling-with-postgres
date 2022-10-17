@@ -1,16 +1,16 @@
 # DROP TABLES
 
-songplay_table_drop = "DROP TABLE IF EXISTS songplay_table"
-user_table_drop = "DROP TABLE IF EXISTS user_table"
-song_table_drop = "DROP TABLE IF EXISTS song_table"
-artist_table_drop = "DROP TABLE IF EXISTS artist_table"
-time_table_drop = "DROP TABLE IF EXISTS time_table"
+songplay_table_drop = "DROP TABLE IF EXISTS songplays"
+user_table_drop = "DROP TABLE IF EXISTS users"
+song_table_drop = "DROP TABLE IF EXISTS songs"
+artist_table_drop = "DROP TABLE IF EXISTS artists"
+time_table_drop = "DROP TABLE IF EXISTS time"
 
 # CREATE TABLES
 
-songplay_table_create = ("""CREATE TABLE IF NOT EXISTS songplay_table
+songplay_table_create = ("""CREATE TABLE IF NOT EXISTS songplays
 (songplay_id SERIAL NOT NULL PRIMARY KEY ,
-start_time int,
+start_time timestamp,
 user_id int,
 level varchar,
 song_id varchar,
@@ -34,7 +34,7 @@ year int,
 duration float)""")
 
 artist_table_create = ("""CREATE TABLE IF NOT EXISTS artists
-(artist_id varchar NOT NULL PRIMARY KEY,
+(artist_id varchar ,
 name varchar,
 location varchar,
 latitude varchar,
@@ -51,11 +51,9 @@ weekday int)""")
 
 # INSERT RECORDS
 
-songplay_table_insert = (""""INSERT INTO songplays
+songplay_table_insert = ("""INSERT INTO songplays
 (songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
-VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-ON CONFLICT(user_id)
-DO UPDATE SET level=EXCLUDED.level;
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
 """)
 
 user_table_insert = (""" INSERT INTO users

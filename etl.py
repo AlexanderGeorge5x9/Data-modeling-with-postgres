@@ -44,7 +44,7 @@ def process_log_file(cur, filepath):
     df['hour']=df['ts'].dt.hour
     df['weekday']=df['ts'].dt.weekday
     df['week']=df['ts'].dt.isocalendar().week
-    df['start_time']=df['ts'].dt.strftime('%r')
+    df['start_time']=df['ts']
     time_df = df[['start_time','hour','day','week','mounth','year','weekday']]
 
     for i, row in time_df.iterrows():
@@ -70,7 +70,8 @@ def process_log_file(cur, filepath):
             songid, artistid = None, None
 
         # insert songplay record
-        songplay_data = row[['ts']].dt.strftime('%r'),row[['userid','level']],songid, artistid,row[['session_id','location', 'user_agen']]
+        #songplay_data = row[['ts']].dt.strftime('%r'),row[['userid','level']],songid, artistid,row[['session_id','location', 'user_agen']]
+        songplay_data=(index, row.ts, int(row.userId), row.level, songid, artistid, row.sessionId, row.location, row.userAgent)
         cur.execute(songplay_table_insert, songplay_data)
 
 
