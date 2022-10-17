@@ -7,6 +7,9 @@ from datetime import datetime
 
 
 def process_song_file(cur, filepath):
+    """
+    This fuction takes the song file path and cur of the postegresql and creates songs table
+    """
     # open song file
     df = pd.read_json(filepath,lines=True)
 
@@ -22,6 +25,9 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    """
+    This fuction takes the log file path and cur of the postegresql and creates users, time, artists, songplays tables
+    """
     # open log file
     df = pd.read_json(filepath,lines=True)
 
